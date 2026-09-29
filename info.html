@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>دليل تشغيل نقطة الاتصال والتاكيد</title>
+    <style>
+        body {
+            font-family: Tahoma, sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+            padding: 20px;
+            margin: 0;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+        }
+        .step {
+            margin-bottom: 20px;
+            padding: 15px;
+            border-right: 4px solid #3498db;
+            background: #ecf0f1;
+            border-radius: 4px;
+        }
+        h3 {
+            margin-top: 0;
+            color: #2980b9;
+        }
+        pre {
+            background: #272822;
+            color: #f8f8f2;
+            padding: 10px;
+            border-radius: 5px;
+            overflow-x: auto;
+            direction: ltr;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>دليل إعداد وتشغيل نقطة الاتصال وسيرفر بايثون</h1>
+
+    <div class="step">
+        <h3>الخطوة 1: تنظيف المنافذ والكارت</h3>
+        <p>قم بتنفيذ الأوامر التالية في نافذة التيرمينال لإيقاف أي عمليات معلقة وإعداد كارت الواي فاي الداخلي:</p>
+        <pre>sudo killall dnsmasq hostapd
+sudo airmon-ng check kill
+sudo rfkill unblock wlan
+sudo ifconfig wlan0 down
+sudo ifconfig wlan0 up
+sudo ifconfig wlan0 192.168.10.1 netmask 255.255.255.0 up</pre>
+    </div>
+
+    <div class="step">
+        <h3>الخطوة 2: تشغيل خادم التوزيع والتحويل (dnsmasq)</h3>
+        <p>افتح نافذة تيرمينال جديدة داخل مجلد المشروع، ثم شغل أمر الـ DHCP والتوجيه:</p>
+        <pre>sudo dnsmasq -C dnsmasq.conf -d</pre>
+    </div>
+
+    <div class="step">
+        <h3>الخطوة 3: تشغيل نقطة الاتصال (hostapd)</h3>
+        <p>افتح نافذة تيرمينال ثانية داخل مجلد المشروع، ثم شغل أمر بث الواي فاي:</p>
+        <pre>sudo hostapd hostapd.conf</pre>
+    </div>
+
+    <div class="step">
+        <h3>الخطوة 4: تشغيل سيرفر بايثون (app.py)</h3>
+        <p>افتح نافذة تيرمينال ثالثة وأخيرة، ثم شغل سيرفر الفلاسك:</p>
+        <pre>sudo python3 app.py</pre>
+    </div>
+
+</div>
+
+</body>
+</html>
